@@ -8,8 +8,8 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <h:outputStylesheet name="./css/default.css"/>
-        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <h:outputStylesheet name="/resources/css/default.css"/>
+        <h:outputStylesheet name="/resources/css/cssLayout.css"/>
         <title>Facelets Template</title>
     </h:head>
     <h:body>
@@ -24,12 +24,12 @@
                             <p:menuitem value="Listar y eliminar" url="faces/listaCliente.xhtml" />
                         </p:submenu>
                         <p:submenu label="Proveedores">
-                            <p:menuitem value="Crear" url="#"/>
-                            <p:menuitem value="Listar" url="#"/>
+                            <p:menuitem value="Crear" url="faces/formularioProveedor.xhtml"/>
+                            <p:menuitem value="Listar" url="faces/listaProveedor.xhtml"/>
                         </p:submenu>
                         <p:submenu label="Productos">
-                            <p:menuitem value="Crear" url="#"/>
-                            <p:menuitem value="Listar" url="#"/>
+                            <p:menuitem value="Crear" url="faces/formularioProducto.xhtml"/>
+                            <p:menuitem value="Listar" url="faces/listaProveedor.xhtml"/>
                         </p:submenu>
                         <p:menuitem value="Comprar" url="#"/>
                         <p:menuitem value="Vender" url="#"/>

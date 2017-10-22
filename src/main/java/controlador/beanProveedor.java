@@ -39,10 +39,15 @@ public class beanProveedor implements Serializable{
     @PostConstruct
     public void init() {
         proveedor = new Proveedor();
+        
     }
     
     public void agregar() {
         this.proveedorEJB.create(proveedor);
+    }
+    
+    public void eliminar(){
+        proveedorEJB.remove(proveedor);
     }
 
     public ProveedorFacadeLocal getProveedorEJB() {

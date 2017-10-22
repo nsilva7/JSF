@@ -42,6 +42,11 @@ public class beanProducto implements Serializable{
     public void crearProducto() {
         this.productoEJB.create(this.producto);
     }
+    
+    public void eliminar(){
+        productoEJB.remove(producto);
+    }
+    
     public ProductoFacadeLocal getProductoEJB() {
         return productoEJB;
     }

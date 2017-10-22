@@ -11,24 +11,27 @@
         <ui:composition template="./menuTemplate.xhtml">
 
             <ui:define name="content">
-                <h:messages id="errorMessages" style="color:red;margin:8px;" />
-        <br></br>
+                <h1><h:outputText value="Nuevo Producto"></h:outputText></h1>
                 <h:form id="FormularioProducto">
-                    <h:outputLabel for="id">Id:</h:outputLabel>
-                    <p:inputText value="#{beanProducto.producto.id}"/>
-                    <h:outputLabel for="nombre">Nombre:</h:outputLabel>
-                    <p:inputText value="#{beanProducto.producto.nombre}"/>
-                    <h:outputLabel for="descripcion">Descripcion:</h:outputLabel>
-                    <p:inputTextarea value="#{beanProducto.producto.descripcion}"/>
-                    <h:outputLabel for="precio">Precio:</h:outputLabel>
-                    <p:inputText value="#{beanProducto.producto.precio}"/>
-                    <h:outputLabel for="stock">Stock:</h:outputLabel>
-                    <p:inputText value="#{beanProducto.producto.stock}"/>
-                    <p:selectOneMenu id="proveedorId" value="#{beanProducto.producto.proveedorId}" converter="proveedorConverter"  >
-                        <f:selectItems value="#{beanProveedor.getProveedores()}" />
-                        <f:ajax render="selected_item" />
-                    </p:selectOneMenu> -->
-                    <h:commandButton action="#{beanProducto.crearProducto()}" value="Submit"></h:commandButton>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel for="id">Id:</h:outputLabel>
+                        <p:inputText value="#{beanProducto.producto.id}"/>
+                        <h:outputLabel for="nombre">Nombre:</h:outputLabel>
+                        <p:inputText value="#{beanProducto.producto.nombre}"/>
+                        <h:outputLabel for="descripcion">Descripcion:</h:outputLabel>
+                        <p:inputTextarea value="#{beanProducto.producto.descripcion}"/>
+                        <h:outputLabel for="precio">Precio:</h:outputLabel>
+                        <p:inputText value="#{beanProducto.producto.precio}"/>
+                        <h:outputLabel for="stock">Stock:</h:outputLabel>
+                        <p:inputText value="#{beanProducto.producto.stock}"/>
+                        <h:outputLabel>Proveedor:</h:outputLabel>
+                        <p:selectOneMenu id="proveedorId" value="#{beanProducto.producto.proveedorId}" converter="proveedorConverter"  >
+                            <f:selectItems value="#{beanProveedor.getProveedores()}" />
+                        </p:selectOneMenu>
+                        <f:facet name="footer">
+                            <h:commandButton action="#{beanProducto.crearProducto()}" value="Guardar"></h:commandButton>
+                        </f:facet>
+                    </h:panelGrid>
           </h:form>
             </ui:define>
 
