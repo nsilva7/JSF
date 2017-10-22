@@ -5,6 +5,7 @@ modelosEJB/AbstractFacade.class
 modelos/Compra_.class
 modelos/Cliente.class
 modelosEJB/VentaFacade.class
+controlador/beanCliente.class
 modelos/Cliente_.class
 modelos/Proveedor_.class
 modelos/Producto.class

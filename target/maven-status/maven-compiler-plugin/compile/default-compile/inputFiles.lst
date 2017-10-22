@@ -1,6 +1,7 @@
 /home/jose/facultad/Electiva III PWFE/jsfRepo/JSF/src/main/java/modelos/Proveedor.java
 /home/jose/facultad/Electiva III PWFE/jsfRepo/JSF/src/main/java/modelosEJB/ProveedorFacade.java
 /home/jose/facultad/Electiva III PWFE/jsfRepo/JSF/src/main/java/modelosEJB/VentaFacadeLocal.java
+/home/jose/facultad/Electiva III PWFE/jsfRepo/JSF/src/main/java/controlador/beanCliente.java
 /home/jose/facultad/Electiva III PWFE/jsfRepo/JSF/src/main/java/modelosEJB/AbstractFacade.java
 /home/jose/facultad/Electiva III PWFE/jsfRepo/JSF/src/main/java/modelosEJB/ProductoFacade.java
 /home/jose/facultad/Electiva III PWFE/jsfRepo/JSF/src/main/java/modelos/Cliente.java

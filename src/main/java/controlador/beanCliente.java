@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -18,7 +19,7 @@ import modelosEJB.ClienteFacadeLocal;
  */
 @Named(value = "beanCliente")
 @ViewScoped
-public class beanCliente {
+public class beanCliente implements Serializable{
 
     /**
      * Creates a new instance of beanCliente
