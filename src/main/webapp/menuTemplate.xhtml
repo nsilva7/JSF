@@ -12,28 +12,31 @@
         <h:outputStylesheet name="./css/cssLayout.css"/>
         <title>Facelets Template</title>
     </h:head>
-
     <h:body>
-
         <div id="top" class="top">
-            <ui:insert name="top">
-                <p:tabMenu activeIndex="#{param.i}">
-                    <p:menuitem value="Overview" outcome="index.xhtml" icon="ui-icon-star">
-                        <f:param name="i" value="0" />
-                    </p:menuitem>
-                    <p:menuitem value="Demos" outcome="index.xhtml" icon="ui-icon-search">
-                        <f:param name="i" value="1" />
-                    </p:menuitem>
-                    <p:menuitem value="Documentation" outcome="index.xhtml" icon="ui-icon-document">
-                        <f:param name="i" value="2" />
-                    </p:menuitem>
-                    <p:menuitem value="Support" outcome="index.xhtml" icon="ui-icon-wrench">
-                        <f:param name="i" value="3" />
-                    </p:menuitem>
-                    <p:menuitem value="Social" outcome="index.xhtml" icon="ui-icon-person">
-                        <f:param name="i" value="4" />
-                    </p:menuitem>
-                </p:tabMenu>
+            <ui:insert name="top">         
+                <h:form>  
+                    <p:growl id="messages"/>
+                    <p:menubar>
+                        <p:submenu label="Clientes">
+                            <p:menuitem value="Crear" url="faces/formularioCliente.xhtml"/>
+                            <p:menuitem value="Listar" url="faces/listaCliente.xhtml" />
+                        </p:submenu>
+                        <p:submenu label="Proveedores">
+                            <p:menuitem value="Crear" url="#"/>
+                            <p:menuitem value="Listar" url="#"/>
+                        </p:submenu>
+                        <p:submenu label="Productos">
+                            <p:menuitem value="Crear" url="#"/>
+                            <p:menuitem value="Listar" url="#"/>
+                        </p:submenu>
+                        <p:menuitem value="Comprar" url="#"/>
+                        <p:menuitem value="Vender" url="#"/>
+                    </p:menubar>
+                </h:form>
+                
+                
+                
             </ui:insert>
         </div>
 
