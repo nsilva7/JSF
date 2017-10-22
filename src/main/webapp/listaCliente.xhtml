@@ -15,6 +15,7 @@
                     <p:dataTable id="tbl" value="#{beanCliente.listarClientes()}"
                                  var="cliente" selectionMode="single" selection="#{beanCliente.cliente}"
                                  rowKey="#{cliente.id}">
+                        <p:ajax event="rowSelect" listener="#{beanCliente.eliminar()}"/>
                         <p:column headerText="Nombre" sortBy="#{cliente.nombre}" filterBy="#{cliente.nombre}" filterMatchMode="contains">
                              <h:outputText value="#{cliente.nombre}"/>
                         </p:column>

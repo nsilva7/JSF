@@ -68,7 +68,8 @@ public class beanCliente implements Serializable{
     }
     public void agregar() {
         clienteEJB.create(cliente);
-        
     }
-    
+    public void eliminar(){
+        clienteEJB.remove(cliente);
+    }
 }
