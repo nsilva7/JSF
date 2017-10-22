@@ -7,6 +7,8 @@ package controlador;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
@@ -17,7 +19,7 @@ import modelosEJB.ClienteFacadeLocal;
  *
  * @author root
  */
-@Named(value = "beanCliente")
+@ManagedBean
 @ViewScoped
 public class beanCliente implements Serializable{
 
@@ -31,6 +33,11 @@ public class beanCliente implements Serializable{
     private Cliente cliente;
     private List<Cliente> listaCliente = null; 
 
+    @PostConstruct
+    public void init() {
+        cliente = new Cliente();
+    }
+    
     public ClienteFacadeLocal getClienteEJB() {
         return clienteEJB;
     }
@@ -59,4 +66,9 @@ public class beanCliente implements Serializable{
         this.listaCliente = clienteEJB.findAll();
         return this.getListaCliente(); 
     }
+    public void agregar() {
+        clienteEJB.create(cliente);
+        
+    }
+    
 }

@@ -12,16 +12,21 @@
             <ui:define name="content">
                 <h:form id="formCliente"> 
                     <h3> Lista de Clientes</h3>
-                    <p:dataTable value="#{beanCliente.listarClientes()}"
+                    <p:dataTable id="tbl" value="#{beanCliente.listarClientes()}"
                                  var="cliente" selectionMode="single" selection="#{beanCliente.cliente}"
                                  rowKey="#{cliente.id}">
+                        <p:column headerText="Nombre" sortBy="#{cliente.nombre}" filterBy="#{cliente.nombre}" filterMatchMode="contains">
+                             <h:outputText value="#{cliente.nombre}"/>
+                        </p:column>
+                        <p:column headerText="CI" sortBy="#{cliente.ci}" filterBy="#{cliente.ci}" filterMatchMode="contains">
+                            <h:outputText value="#{cliente.ci}"/>
+                        </p:column>
                     </p:dataTable>
-                    <p:column headerText="Nombre">
-                        <h:outputText value="#{cliente.nombre}"/>
-                    </p:column>
-                    <p:column headerText="CI">
-                        <h:outputText value="#{cliente.ci}"/>
-                    </p:column>
+                    <h3>Exportar a excel</h3>
+                    <h:commandLink>
+                        guardar
+                        <p:dataExporter type="xls" target="tbl" fileName="clientes" pageOnly="true"/>
+                    </h:commandLink>
                 </h:form>
             </ui:define>
 
