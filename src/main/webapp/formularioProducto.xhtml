@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./menuTemplate.xhtml">
+
+            <ui:define name="content">
+                <h:messages id="errorMessages" style="color:red;margin:8px;" />
+        <br></br>
+                <h:form id="FormularioProducto">
+                    <h:outputLabel for="id">Id:</h:outputLabel>
+                    <p:inputText value="#{beanProducto.producto.id}"/>
+                    <h:outputLabel for="nombre">Nombre:</h:outputLabel>
+                    <p:inputText value="#{beanProducto.producto.nombre}"/>
+                    <h:outputLabel for="descripcion">Descripcion:</h:outputLabel>
+                    <p:inputTextarea value="#{beanProducto.producto.descripcion}"/>
+                    <h:outputLabel for="precio">Precio:</h:outputLabel>
+                    <p:inputText value="#{beanProducto.producto.precio}"/>
+                    <h:outputLabel for="stock">Stock:</h:outputLabel>
+                    <p:inputText value="#{beanProducto.producto.stock}"/>
+                    <p:selectOneMenu id="proveedorId" value="#{beanProducto.producto.proveedorId}" converter="proveedorConverter"  >
+                        <f:selectItems value="#{beanProveedor.getProveedores()}" />
+                        <f:ajax render="selected_item" />
+                    </p:selectOneMenu> -->
+                    <h:commandButton action="#{beanProducto.crearProducto()}" value="Submit"></h:commandButton>
+          </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

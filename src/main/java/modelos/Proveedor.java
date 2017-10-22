@@ -114,6 +114,7 @@ public class Proveedor implements Serializable {
             return false;
         }
         Proveedor other = (Proveedor) object;
+        System.out.println(other.id + "-" + this.id);
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -122,7 +123,7 @@ public class Proveedor implements Serializable {
 
     @Override
     public String toString() {
-        return "modelos.Proveedor[ id=" + id + " ]";
+        return this.id + "-" + this.nombre + "-"+ this.ruc;
     }
     
 }
