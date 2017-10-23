@@ -11,12 +11,15 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -25,14 +28,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author nico
  */
 @Entity
-@Table(name = "cliente")
+@Table(name = "detalleventa")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c")
-    , @NamedQuery(name = "Cliente.findById", query = "SELECT c FROM Cliente c WHERE c.id = :id")
-    , @NamedQuery(name = "Cliente.findByNombre", query = "SELECT c FROM Cliente c WHERE c.nombre = :nombre")
-    , @NamedQuery(name = "Cliente.findByCi", query = "SELECT c FROM Cliente c WHERE c.ci = :ci")})
-public class Cliente implements Serializable {
+    @NamedQuery(name = "Detalleventa.findAll", query = "SELECT d FROM Detalleventa d")
+    , @NamedQuery(name = "Detalleventa.findById", query = "SELECT d FROM Detalleventa d WHERE d.id = :id")
+    , @NamedQuery(name = "Detalleventa.findByCantidad", query = "SELECT d FROM Detalleventa d WHERE d.cantidad = :cantidad")})
+public class Detalleventa implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,19 +42,21 @@ public class Cliente implements Serializable {
     @NotNull
     @Column(name = "id")
     private Integer id;
-    @Size(max = 30)
-    @Column(name = "nombre")
-    private String nombre;
-    @Size(max = 30)
-    @Column(name = "ci")
-    private String ci;
-    @OneToMany(mappedBy = "clienteId")
+    @Column(name = "cantidad")
+    private Integer cantidad;
+    
+    @ManyToMany(mappedBy = "detalleventaList")
     private List<Venta> ventaList;
+    @OneToMany(mappedBy = "detalle")
+    private List<Venta> ventaList1;
+    @JoinColumn(name = "producto_id", referencedColumnName = "id")
+    @ManyToOne
+    private Producto productoId;
 
-    public Cliente() {
+    public Detalleventa() {
     }
 
-    public Cliente(Integer id) {
+    public Detalleventa(Integer id) {
         this.id = id;
     }
 
@@ -64,20 +68,12 @@ public class Cliente implements Serializable {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public Integer getCantidad() {
+        return cantidad;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getCi() {
-        return ci;
-    }
-
-    public void setCi(String ci) {
-        this.ci = ci;
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
     }
 
     @XmlTransient
@@ -87,6 +83,23 @@ public class Cliente implements Serializable {
 
     public void setVentaList(List<Venta> ventaList) {
         this.ventaList = ventaList;
+    }
+
+    @XmlTransient
+    public List<Venta> getVentaList1() {
+        return ventaList1;
+    }
+
+    public void setVentaList1(List<Venta> ventaList1) {
+        this.ventaList1 = ventaList1;
+    }
+
+    public Producto getProductoId() {
+        return productoId;
+    }
+
+    public void setProductoId(Producto productoId) {
+        this.productoId = productoId;
     }
 
     @Override
@@ -99,10 +112,10 @@ public class Cliente implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Cliente)) {
+        if (!(object instanceof Detalleventa)) {
             return false;
         }
-        Cliente other = (Cliente) object;
+        Detalleventa other = (Detalleventa) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -111,7 +124,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return this.id + "-" + this.nombre + "-"+ this.ci;
+        return "modelos.Detalleventa[ id=" + id + " ]";
     }
     
 }

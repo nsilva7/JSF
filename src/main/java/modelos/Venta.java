@@ -7,11 +7,14 @@ package modelos;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -20,6 +23,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,8 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Venta.findAll", query = "SELECT v FROM Venta v")
     , @NamedQuery(name = "Venta.findById", query = "SELECT v FROM Venta v WHERE v.id = :id")
-    , @NamedQuery(name = "Venta.findByFecha", query = "SELECT v FROM Venta v WHERE v.fecha = :fecha")
-    , @NamedQuery(name = "Venta.findByCantidad", query = "SELECT v FROM Venta v WHERE v.cantidad = :cantidad")})
+    , @NamedQuery(name = "Venta.findByFecha", query = "SELECT v FROM Venta v WHERE v.fecha = :fecha")})
 public class Venta implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,14 +47,17 @@ public class Venta implements Serializable {
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;
-    @Column(name = "cantidad")
-    private Integer cantidad;
+    @JoinTable(name = "venta_detalle", joinColumns = {
+        @JoinColumn(name = "venta_id", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "detalleventa_id", referencedColumnName = "id")})
+    @ManyToMany
+    private List<Detalleventa> detalleventaList;
     @JoinColumn(name = "cliente_id", referencedColumnName = "id")
     @ManyToOne
     private Cliente clienteId;
-    @JoinColumn(name = "producto_id", referencedColumnName = "id")
+    @JoinColumn(name = "detalle", referencedColumnName = "id")
     @ManyToOne
-    private Producto productoId;
+    private Detalleventa detalle;
 
     public Venta() {
     }
@@ -76,12 +82,13 @@ public class Venta implements Serializable {
         this.fecha = fecha;
     }
 
-    public Integer getCantidad() {
-        return cantidad;
+    @XmlTransient
+    public List<Detalleventa> getDetalleventaList() {
+        return detalleventaList;
     }
 
-    public void setCantidad(Integer cantidad) {
-        this.cantidad = cantidad;
+    public void setDetalleventaList(List<Detalleventa> detalleventaList) {
+        this.detalleventaList = detalleventaList;
     }
 
     public Cliente getClienteId() {
@@ -92,12 +99,12 @@ public class Venta implements Serializable {
         this.clienteId = clienteId;
     }
 
-    public Producto getProductoId() {
-        return productoId;
+    public Detalleventa getDetalle() {
+        return detalle;
     }
 
-    public void setProductoId(Producto productoId) {
-        this.productoId = productoId;
+    public void setDetalle(Detalleventa detalle) {
+        this.detalle = detalle;
     }
 
     @Override

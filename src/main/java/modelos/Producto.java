@@ -59,8 +59,6 @@ public class Producto implements Serializable {
     private Integer precio;
     @Column(name = "stock")
     private Integer stock;
-    @OneToMany(mappedBy = "productoId")
-    private List<Venta> ventaList;
     @JoinColumn(name = "proveedor_id", referencedColumnName = "id")
     @ManyToOne
     private Proveedor proveedorId;
@@ -111,17 +109,6 @@ public class Producto implements Serializable {
     public void setStock(Integer stock) {
         this.stock = stock;
     }
-
-
-    @XmlTransient
-    public List<Venta> getVentaList() {
-        return ventaList;
-    }
-
-    public void setVentaList(List<Venta> ventaList) {
-        this.ventaList = ventaList;
-    }
-
     public Proveedor getProveedorId() {
         return proveedorId;
     }
@@ -163,5 +150,6 @@ public class Producto implements Serializable {
     public void setDetallecompraList(List<Detallecompra> detallecompraList) {
         this.detallecompraList = detallecompraList;
     }
+
     
 }
