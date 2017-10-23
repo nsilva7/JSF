@@ -13,6 +13,7 @@ import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import modelos.Producto;
+import modelos.Proveedor;
 import modelosEJB.ProductoFacadeLocal;
 
 /**
@@ -75,4 +76,15 @@ public class beanProducto implements Serializable{
         productoLista = productoEJB.findAll();
         return productoLista;
     }
+    
+        public List<Producto> getProductosProveedor(int id) {
+        productoLista = productoEJB.findAll();
+        for (int i = 0; i < productoLista.size(); i++) {
+            if(productoLista.get(i).getProveedorId().getId() != id){
+                productoLista.remove(i);
+            }
+	}
+        return productoLista;
+    }
+    
 }

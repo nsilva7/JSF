@@ -40,6 +40,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Producto.findByStock", query = "SELECT p FROM Producto p WHERE p.stock = :stock")})
 public class Producto implements Serializable {
 
+    @OneToMany(mappedBy = "productoId")
+    private List<Detallecompra> detallecompraList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -56,8 +59,6 @@ public class Producto implements Serializable {
     private Integer precio;
     @Column(name = "stock")
     private Integer stock;
-    @OneToMany(mappedBy = "productoId")
-    private List<Compra> compraList;
     @OneToMany(mappedBy = "productoId")
     private List<Venta> ventaList;
     @JoinColumn(name = "proveedor_id", referencedColumnName = "id")
@@ -111,14 +112,6 @@ public class Producto implements Serializable {
         this.stock = stock;
     }
 
-    @XmlTransient
-    public List<Compra> getCompraList() {
-        return compraList;
-    }
-
-    public void setCompraList(List<Compra> compraList) {
-        this.compraList = compraList;
-    }
 
     @XmlTransient
     public List<Venta> getVentaList() {
@@ -159,7 +152,16 @@ public class Producto implements Serializable {
 
     @Override
     public String toString() {
-        return this.nombre + "-"+ this.id ;
+        return this.id+ "-"+ this.nombre  ;
+    }
+
+    @XmlTransient
+    public List<Detallecompra> getDetallecompraList() {
+        return detallecompraList;
+    }
+
+    public void setDetallecompraList(List<Detallecompra> detallecompraList) {
+        this.detallecompraList = detallecompraList;
     }
     
 }

@@ -10,6 +10,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.component.UIInput;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import modelos.Producto;
@@ -35,6 +36,7 @@ public class beanProveedor implements Serializable{
     private ProveedorFacadeLocal proveedorEJB;
     private Proveedor proveedor;
     private List<Proveedor> proveedorLista=null;
+    private UIInput proveedorid;
 
     @PostConstruct
     public void init() {
@@ -48,6 +50,14 @@ public class beanProveedor implements Serializable{
     
     public void eliminar(){
         proveedorEJB.remove(proveedor);
+    }
+
+    public UIInput getProveedorid() {
+        return proveedorid;
+    }
+
+    public void setProveedorid(UIInput proveedorid) {
+        this.proveedorid = proveedorid;
     }
 
     public ProveedorFacadeLocal getProveedorEJB() {
@@ -78,4 +88,5 @@ public class beanProveedor implements Serializable{
         this.proveedorLista = proveedorEJB.findAll();
         return this.getProveedorLista();
     }
+    
 }

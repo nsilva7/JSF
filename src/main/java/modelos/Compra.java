@@ -6,12 +6,18 @@
 package modelos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -20,6 +26,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,29 +38,31 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Compra.findAll", query = "SELECT c FROM Compra c")
     , @NamedQuery(name = "Compra.findById", query = "SELECT c FROM Compra c WHERE c.id = :id")
-    , @NamedQuery(name = "Compra.findByFecha", query = "SELECT c FROM Compra c WHERE c.fecha = :fecha")
-    , @NamedQuery(name = "Compra.findByCantidad", query = "SELECT c FROM Compra c WHERE c.cantidad = :cantidad")})
+    , @NamedQuery(name = "Compra.findByFecha", query = "SELECT c FROM Compra c WHERE c.fecha = :fecha")})
 public class Compra implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id")
     private Integer id;
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;
-    @Column(name = "cantidad")
-    private Integer cantidad;
-    @JoinColumn(name = "producto_id", referencedColumnName = "id")
+    @JoinTable(name = "compra_detalle", joinColumns = {
+        @JoinColumn(name = "compra_id", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "detallecompra_id", referencedColumnName = "id")})
+    @ManyToMany
+    private List<Detallecompra> detallecompraList = new ArrayList<>();;
+    @JoinColumn(name = "detalle", referencedColumnName = "id")
     @ManyToOne
-    private Producto productoId;
+    private Detallecompra detalle;
     @JoinColumn(name = "proveedor_id", referencedColumnName = "id")
     @ManyToOne
     private Proveedor proveedorId;
 
     public Compra() {
+      
     }
 
     public Compra(Integer id) {
@@ -76,20 +85,25 @@ public class Compra implements Serializable {
         this.fecha = fecha;
     }
 
-    public Integer getCantidad() {
-        return cantidad;
+    @XmlTransient
+    public List<Detallecompra> getDetallecompraList() {
+        return detallecompraList;
     }
 
-    public void setCantidad(Integer cantidad) {
-        this.cantidad = cantidad;
+    public void setDetallecompraList(List<Detallecompra> detallecompraList) {
+        this.detallecompraList = detallecompraList;
     }
 
-    public Producto getProductoId() {
-        return productoId;
+    public Detallecompra getDetalle() {
+        return detalle;
     }
 
-    public void setProductoId(Producto productoId) {
-        this.productoId = productoId;
+    public void setDetalle(Detallecompra detalle) {
+        this.detalle = detalle;
+    }
+    
+    public void agregarDetalle(Detallecompra detalle) {
+        this.detallecompraList.add(detalle);
     }
 
     public Proveedor getProveedorId() {
