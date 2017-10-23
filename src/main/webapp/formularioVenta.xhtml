@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./menuTemplate.xhtml">
+
+            <ui:define name="content">
+                <h1><h:outputText value="Nueva Venta"></h:outputText></h1>
+                <h:form id="FormularioVenta">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel for="id">Id:</h:outputLabel>
+                        <p:inputText value="#{beanVenta.venta.id}" >
+                        </p:inputText>
+                        <p:outputLabel value="Fecha:" />
+                        <p:calendar id="button" value="#{beanVenta.venta.fecha}" showOn="button" />
+                        <h:outputLabel for="proveedorId">Clientes:</h:outputLabel>
+                        <p:selectOneMenu id="proveedorId" value="#{beanVenta.venta.clienteId}" converter="clienteConverter"  >
+                            <f:selectItem itemLabel="Elige un Cliente" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems value="#{beanCliente.listarClientes()}" />
+                        </p:selectOneMenu>
+                        <h:outputLabel for="detalleid">DetalleId:</h:outputLabel>
+                        <p:inputText id="detalleid" value="#{beanVenta.detail.id}"/>
+                        <h:outputLabel for="productos">Producto:</h:outputLabel>
+                        <p:selectOneMenu id="productos" value="#{beanVenta.detail.productoId}" converter="productoConverter"  >
+                            <f:selectItem itemLabel="Elige un Producto" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems  value="#{beanVenta.productos}" />
+                        </p:selectOneMenu>
+                        <h:outputLabel for="cantidad">Cantidad:</h:outputLabel>
+                        <p:inputText id="cantidad" value="#{beanVenta.detail.cantidad}"/>
+                        <h:commandButton  value="agregar" actionListener="#{beanVenta.agregarDetalle()}" />
+
+                        <f:facet name="footer">
+                            <h:commandButton value="registrar" actionListener="#{beanVenta.agregar()}"/>
+                        </f:facet>
+                    </h:panelGrid>
+                    <p:dataTable id="dt" value="#{beanVenta.getDetalles()}" var="det" >
+                        <p:column headerText="Producto">
+                            #{det.productoId.nombre}
+                        </p:column>
+                        <p:column headerText="Cantidad" >
+                            #{det.cantidad}
+                        </p:column>
+                    </p:dataTable>
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
